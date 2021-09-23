@@ -1,0 +1,67 @@
+<div class="card shadow mb-4 mt-5">
+    <div class="card-body">
+        <div class="card-header">
+            <h4 class="m-0 font-weight-bold text-primary">Contas a Pagar</h4>
+        </div>
+
+        <form [formGroup]="form$ | async" (ngSubmit)="gravar()">
+
+            <div class="row">
+                <div class="form-group col-md-6">
+                    <label>Nome:</label>
+
+                    <select class="form-control custom-select" name="nomeEntidade"
+                            [formControlName]="'nomeEntidade'">
+                        <option  *ngFor="let forn of fornecedores$ | async" [ngValue]="forn.nome">{{forn.nome}}</option>
+                    </select>
+                </div>
+
+
+                <div class="form-group col-md-6">
+                    <label>Tipo documento:</label>
+                    <input class="form-control" name="tipoDocumento"
+                           [formControlName]="'tipoDocumento'">
+                </div>
+            </div>
+
+            <div class="row">
+
+                <div class="form-group col-md-6">
+                    <label>Emissão:</label>
+                    <input class="form-control" type="date" name="emissao"
+                           [formControlName]="'emissao'">
+                </div>
+
+                <div class="form-group col-md-6">
+                    <label>Vencimento:</label>
+                    <input class="form-control" type="date" name="vencimento"
+                           [formControlName]="'vencimento'">
+                </div>
+            </div>
+
+            <div class="row">
+
+                <div class="form-group col-md-3">
+                    <label>valor:</label>
+                    <input class="form-control" type="number" name="valor"
+                           [formControlName]="'valor'">
+                </div>
+
+            </div>
+
+            <div class="my-5"></div>
+            <div class="card-header py-3 text-right">
+
+
+                <button type="submit" class="btn btn-success mr-2">
+                    <span class="text">Gravar</span>
+                </button>
+
+                <button class="btn btn-secondary mr-2" [routerLink]="'/cadastros/contas-pagar/'">
+                    <span class="text">Cancelar</span>
+                </button>
+            </div>
+
+        </form>
+    </div>
+</div>

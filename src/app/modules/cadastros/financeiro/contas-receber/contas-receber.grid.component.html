@@ -1,0 +1,111 @@
+<!--<h1>Teste cadastro de usuario</h1>-->
+<!--<sb-card>-->
+<div class="card-header">
+    <!--    <fa-icon class="mr-1" [icon]='["fas", "table"]'></fa-icon>-->
+    <h4 class="m-0 font-weight-bold text-center text-primary">Contas a receber</h4>
+</div>
+<div class="card-body">
+
+    <form>
+        <div class="form-group form-inline">
+            <input class="form-control ml-2 col-md" type="text" name="searchTerm" [placeholder]="'Pesquisar'"
+                   [(ngModel)]="countryService.searchTerm" />
+        </div>
+        <!--        <span class="ml-3" *ngIf="countryService.loading$ | async">Carregando...</span>-->
+        <table class="table table-striped table-hover">
+            <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col" sbSortable="nomeEntidade" (sort)="onSort($event)"><span>Nome</span>
+                    <!--                <sb-sort-icon *ngIf='sortedColumn === "name"' [direction]="sortedDirection"></sb-sort-icon>-->
+                </th>
+                <th scope="col" sbSortable="tipoDocumento" (sort)="onSort($event)"><span>Documento</span>
+                    <!--                <sb-sort-icon *ngIf='sortedColumn === "area"' [direction]="sortedDirection"></sb-sort-icon>-->
+                </th>
+                <th scope="col" sbSortable="emissao" (sort)="onSort($event)"><span>Emissão</span>
+                    <!--                <sb-sort-icon *ngIf='sortedColumn === "population"' [direction]="sortedDirection"></sb-sort-icon>-->
+                </th>
+                <th scope="col" sbSortable="vencimento" (sort)="onSort($event)"><span>Vencimento</span>
+                    <!--                <sb-sort-icon *ngIf='sortedColumn === "population"' [direction]="sortedDirection"></sb-sort-icon>-->
+                </th>
+                <th scope="col" sbSortable="valor" (sort)="onSort($event)"><span>valor</span>
+                    <!--                <sb-sort-icon *ngIf='sortedColumn === "population"' [direction]="sortedDirection"></sb-sort-icon>-->
+                </th>
+
+                <th scope="col" sbSortable="status" (sort)="onSort($event)"><span>Status</span>
+                    <!--                <sb-sort-icon *ngIf='sortedColumn === "population"' [direction]="sortedDirection"></sb-sort-icon>-->
+                </th>
+                <th scope="col"></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let user of financeiro$ | async" [routerLink]="['/cadastros/contas-receber/save/', user.id]">
+                <th scope="row">{{ user.id }}</th>
+                <td>
+                    <ngb-highlight [result]="user.nomeEntidade" [term]="countryService.searchTerm"></ngb-highlight>
+                </td>
+                <td>
+                    <ngb-highlight
+                        [result]="user.tipoDocumento" [term]="countryService.searchTerm"></ngb-highlight>
+                </td>
+                <td>
+                    <ngb-highlight [result]="user.emissao"
+                                   [term]="countryService.searchTerm"></ngb-highlight>
+                </td>
+                <td>
+                    <ngb-highlight [result]="user.vencimento"
+                                   [term]="countryService.searchTerm"></ngb-highlight>
+                </td>
+
+                <td>
+                    <ngb-highlight [result]="user.valor | currency: 'BRL': 'symbol': '1.2-2'"
+                                   [term]="countryService.searchTerm"></ngb-highlight>
+                </td>
+
+                <td>
+                    <ngb-highlight [result]="user.status"
+                                   [term]="countryService.searchTerm"></ngb-highlight>
+                </td>
+
+                <td>
+
+                    <button type="button" class="btn btn-danger mx-2" (click)="excluir(user); $event.stopPropagation()"
+                            *ngIf="user.status === 'Aberto'">
+                        Excluir
+                    </button>
+
+                    <button type="button" class="btn btn-primary" (click)="baixar(user.id); $event.stopPropagation()"
+                            *ngIf="user.status === 'Aberto'">
+                        Baixar
+                    </button>
+
+                </td>
+            </tr>
+            </tbody>
+        </table>
+
+        <div class="d-flex justify-content-between p-2">
+
+            <ngb-pagination [collectionSize]="total$ | async" [(page)]="countryService.page"
+                            [pageSize]="countryService.pageSize"></ngb-pagination>
+
+            <div class="col-md"></div>
+
+            <select class="custom-select mr-2" style="width: auto" name="pageSize"
+                    [(ngModel)]="countryService.pageSize">
+                <option [ngValue]="2">2 items por pagina</option>
+                <option [ngValue]="4">4 items por pagina</option>
+                <option [ngValue]="6">6 items por pagina</option>
+            </select>
+
+            <div class="text-right">
+
+                <button class="btn btn-success" [routerLink]="'/cadastros/contas-receber/save'">
+                    <span class="text">Incluir</span>
+                </button>
+
+            </div>
+        </div>
+    </form>
+</div>
+<!--</sb-card>-->

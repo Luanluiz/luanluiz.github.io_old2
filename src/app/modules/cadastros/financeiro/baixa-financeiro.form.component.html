@@ -1,0 +1,97 @@
+<div class="card shadow mb-4 mt-5">
+    <div class="card-body">
+        <div class="card-header">
+            <h4 class="m-0 font-weight-bold text-primary">Contas a receber</h4>
+        </div>
+
+        <form [formGroup]="formDocumento$ | async">
+
+            <div class="row">
+                <div class="form-group col-md-6">
+                    <label>Nome:</label>
+
+                    <select class="form-control custom-select" name="nomeEntidade"
+                            [formControlName]="'nomeEntidade'" disabled>
+                        <option *ngFor="let forn of cliente$ | async" [ngValue]="forn.nome">{{forn.nome}}</option>
+                    </select>
+                </div>
+
+
+                <div class="form-group col-md-6">
+                    <label>Tipo documento:</label>
+                    <input class="form-control" name="tipoDocumento"
+                           [formControlName]="'tipoDocumento'" disabled>
+                </div>
+            </div>
+
+            <div class="row">
+
+                <div class="form-group col-md-6">
+                    <label>Emissão:</label>
+                    <input class="form-control" type="date" name="emissao"
+                           [formControlName]="'emissao'" disabled>
+                </div>
+
+                <div class="form-group col-md-6">
+                    <label>Vencimento:</label>
+                    <input class="form-control" type="date" name="vencimento"
+                           [formControlName]="'vencimento'" disabled>
+                </div>
+            </div>
+
+            <div class="row">
+
+                <div class="form-group col-md-3">
+                    <label>valor:</label>
+                    <input class="form-control" type="number" name="valor"
+                           [formControlName]="'valor'" disabled>
+                </div>
+
+            </div>
+
+
+        </form>
+
+        <div class="card-header">
+            <h4 class="m-0 font-weight-bold text-primary">Baixa</h4>
+        </div>
+
+        <form [formGroup]="form$ | async" (ngSubmit)="baixar()">
+
+            <div class="row">
+
+                <div class="form-group col-md-4">
+                    <label>Meio pagamento:</label>
+
+                    <select class="form-control custom-select" name="formaPagamento"
+                            [formControlName]="'formaPagamento'">
+                        <option [ngValue]="'Dinheiro'">Dinheiro</option>
+                        <option [ngValue]="'Cheque'">Depósito</option>
+                        <option [ngValue]="'Cartão'">Cartão</option>
+                    </select>
+                </div>
+
+                <div class="form-group col-md-2">
+                    <label>valor:</label>
+                    <input class="form-control" type="number" name="valor"
+                           [formControlName]="'valor'">
+                </div>
+
+            </div>
+
+
+            <div class="my-5"></div>
+            <div class="card-header py-3 text-right">
+
+
+                <button type="submit" class="btn btn-success mr-2">
+                    <span class="text">Baixar</span>
+                </button>
+
+                <button class="btn btn-secondary mr-2" [routerLink]="'/cadastros/contas-receber/'">
+                    <span class="text">Cancelar</span>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
